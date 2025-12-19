@@ -1,0 +1,127 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Application settings - stores all configurable options for this instance
+model Settings {
+  id        String   @id @default("singleton")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Basic Info
+  organizationName String  @default("My Organization")
+
+  // Branding
+  logoUrl         String? // Path to uploaded logo
+  primaryColor    String  @default("#165B33") // Christmas green
+  secondaryColor  String  @default("#C41E3A") // Christmas red
+  homepageTitle   String  @default("Secret Santa")
+  homepageMessage String  @default("Sign in to discover who you'll be gifting this holiday season!")
+
+  // Email Settings
+  smtpHost        String  @default("smtp.gmail.com")
+  smtpPort        Int     @default(587)
+  smtpUser        String?
+  smtpPassword    String?
+  smtpSecure      Boolean @default(false)
+  emailFrom       String?
+  emailFromName   String  @default("Secret Santa")
+
+  // Notification Settings
+  hrEmail         String? // HR/Admin notification email
+
+  // Email Template Customization
+  emailSubject    String  @default("Your Secret Santa Assignment!")
+  emailFooter     String  @default("This is an automated message from the Secret Santa System.")
+
+  // Admin Settings
+  adminEmails     String  @default("") // Comma-separated list of admin emails
+
+  // Auth Settings - which providers are enabled (based on what's configured in .env)
+  googleEnabled   Boolean @default(true)
+  microsoftEnabled Boolean @default(false)
+
+  // Setup Status
+  setupComplete   Boolean @default(false)
+}
+
+model TeamMember {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isActive  Boolean  @default(true)
+
+  // Relations
+  givenAssignments    Assignment[] @relation("Giver")
+  receivedAssignments Assignment[] @relation("Receiver")
+}
+
+model Assignment {
+  id         String   @id @default(uuid())
+  giverId    String
+  receiverId String
+  assignedAt DateTime @default(now())
+  emailSent  Boolean  @default(false)
+
+  // Relations
+  giver    TeamMember @relation("Giver", fields: [giverId], references: [id])
+  receiver TeamMember @relation("Receiver", fields: [receiverId], references: [id])
+
+  @@unique([giverId])
+  @@index([receiverId])
+}
+
+model User {
+  id            String    @id @default(uuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts Account[]
+  sessions Session[]
+}
+
+model Account {
+  id                String  @id @default(uuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}

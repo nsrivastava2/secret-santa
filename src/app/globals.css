@@ -1,0 +1,599 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Pacifico&family=Lato:wght@400;700;900&display=swap');
+
+:root {
+  --retro-teal: #2d8b8b;
+  --retro-teal-dark: #1e6464;
+  --retro-teal-light: #4db8b8;
+  --retro-coral: #e8735a;
+  --retro-coral-dark: #d15a42;
+  --retro-coral-light: #f0917d;
+  --retro-cream: #f5f1e8;
+  --retro-cream-dark: #e8e0d0;
+  --retro-brown: #4a3728;
+  --retro-gold: #c9a227;
+  --retro-gold-light: #e8c547;
+  --retro-red: #c44536;
+  --retro-yellow: #f4d03f;
+  --retro-green: #45a049;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at top, var(--retro-teal-light) 0%, var(--retro-teal) 50%, var(--retro-teal-dark) 100%);
+  font-family: 'Lato', sans-serif;
+  min-height: 100vh;
+}
+
+/* Rich layered background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 6px,
+      rgba(255, 255, 255, 0.03) 6px,
+      rgba(255, 255, 255, 0.03) 12px
+    ),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 6px,
+      rgba(0, 0, 0, 0.03) 6px,
+      rgba(0, 0, 0, 0.03) 12px
+    ),
+    radial-gradient(circle at 20% 80%, rgba(232, 115, 90, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(201, 162, 39, 0.1) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Animated light rays */
+body::after {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background:
+    conic-gradient(from 0deg at 50% 50%,
+      transparent 0deg,
+      rgba(255,255,255,0.03) 10deg,
+      transparent 20deg,
+      transparent 40deg,
+      rgba(255,255,255,0.02) 50deg,
+      transparent 60deg,
+      transparent 90deg
+    );
+  animation: light-rotate 60s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes light-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Snowfall */
+.snowflake {
+  color: #fff;
+  position: fixed;
+  top: -5%;
+  z-index: 5;
+  user-select: none;
+  pointer-events: none;
+  animation: snowfall 12s linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes snowfall {
+  0% {
+    top: -5%;
+    opacity: 0;
+    transform: translateX(0) rotate(0deg);
+  }
+  5% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    top: 105%;
+    opacity: 0;
+    transform: translateX(50px) rotate(720deg);
+  }
+}
+
+/* Retro card with hard offset shadow */
+.retro-card {
+  background:
+    linear-gradient(135deg, var(--retro-cream) 0%, var(--retro-cream-dark) 100%);
+  border: 5px solid var(--retro-brown);
+  box-shadow: 8px 8px 0 var(--retro-brown);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Multiple pattern overlays */
+.retro-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(232, 115, 90, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 0% 100%, rgba(45, 139, 139, 0.1) 0%, transparent 50%),
+    radial-gradient(circle, var(--retro-brown) 0.5px, transparent 0.5px);
+  background-size: 100% 100%, 100% 100%, 4px 4px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Decorative border inside card */
+.retro-card::after {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  border: 2px solid var(--retro-coral);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* Header bar */
+.retro-header {
+  background:
+    linear-gradient(180deg, var(--retro-cream) 0%, var(--retro-cream-dark) 50%, #d8d0c0 100%);
+  border-bottom: 5px solid var(--retro-brown);
+  box-shadow: 0 5px 0 var(--retro-brown);
+}
+
+/* Display title */
+.retro-title {
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 0.05em;
+  color: var(--retro-brown);
+  text-shadow: 2px 2px 0 rgba(255,255,255,0.6);
+}
+
+/* Script title */
+.retro-script {
+  font-family: 'Pacifico', cursive;
+  color: var(--retro-coral);
+  text-shadow: 2px 2px 0 rgba(74, 55, 40, 0.3);
+}
+
+/* Vintage badge with hard shadow */
+.retro-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  background: var(--retro-coral);
+  border: 5px solid var(--retro-brown);
+  border-radius: 50%;
+  color: var(--retro-cream);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem;
+  text-align: center;
+  line-height: 1.2;
+  box-shadow: 5px 5px 0 var(--retro-brown);
+  transform: rotate(-8deg);
+  animation: badge-float 3s ease-in-out infinite;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+  position: relative;
+}
+
+.retro-badge::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  border: 2px dashed rgba(255,255,255,0.3);
+  border-radius: 50%;
+}
+
+@keyframes badge-float {
+  0%, 100% { transform: rotate(-8deg) translateY(0) scale(1); }
+  50% { transform: rotate(-8deg) translateY(-8px) scale(1.02); }
+}
+
+.retro-badge-sm {
+  width: 80px;
+  height: 80px;
+  font-size: 0.8rem;
+  border-width: 4px;
+}
+
+/* Starburst with hard shadow */
+.retro-starburst {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 90px;
+  background: var(--retro-yellow);
+  color: var(--retro-brown);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.85rem;
+  text-align: center;
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  animation: starburst-spin 25s linear infinite;
+  filter: drop-shadow(4px 4px 0 var(--retro-brown));
+}
+
+@keyframes starburst-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.retro-starburst span {
+  animation: starburst-spin 25s linear infinite reverse;
+}
+
+/* Primary button with hard shadow */
+.retro-button {
+  background: var(--retro-coral);
+  border: 4px solid var(--retro-brown);
+  color: var(--retro-cream);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 0.12em;
+  padding: 1rem 2.5rem;
+  box-shadow: 5px 5px 0 var(--retro-brown);
+  transition: all 0.15s ease;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+}
+
+.retro-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: button-shine 2.5s ease-in-out infinite;
+}
+
+.retro-button::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  border: 1px solid rgba(255,255,255,0.2);
+  pointer-events: none;
+}
+
+@keyframes button-shine {
+  0%, 100% { left: -100%; }
+  50% { left: 100%; }
+}
+
+.retro-button:hover {
+  transform: translate(3px, 3px);
+  box-shadow: 2px 2px 0 var(--retro-brown);
+}
+
+.retro-button:active {
+  transform: translate(5px, 5px);
+  box-shadow: 0 0 0 var(--retro-brown);
+}
+
+.retro-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.retro-button:disabled::before {
+  animation: none;
+}
+
+/* Secondary button with hard shadow */
+.retro-button-secondary {
+  background: var(--retro-cream);
+  border: 3px solid var(--retro-brown);
+  color: var(--retro-brown);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  padding: 0.5rem 1.25rem;
+  box-shadow: 3px 3px 0 var(--retro-brown);
+  transition: all 0.15s ease;
+  text-transform: uppercase;
+}
+
+.retro-button-secondary:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--retro-brown);
+  background: var(--retro-cream-dark);
+}
+
+/* Navigation with hard shadow */
+.retro-nav {
+  background: var(--retro-coral);
+  border-bottom: 5px solid var(--retro-brown);
+  box-shadow: 0 5px 0 var(--retro-brown);
+}
+
+/* Ribbon banner with hard shadow */
+.retro-ribbon {
+  background: var(--retro-red);
+  color: var(--retro-cream);
+  font-family: 'Bebas Neue', sans-serif;
+  padding: 0.6rem 3rem;
+  position: relative;
+  display: inline-block;
+  font-size: 0.95rem;
+  letter-spacing: 0.2em;
+  box-shadow: 0 3px 0 #8b2920;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+}
+
+.retro-ribbon::before,
+.retro-ribbon::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  border: 10px solid transparent;
+  border-top-color: #8b2920;
+}
+
+.retro-ribbon::before {
+  left: 0;
+  border-left-color: #8b2920;
+}
+
+.retro-ribbon::after {
+  right: 0;
+  border-right-color: #8b2920;
+}
+
+/* Result box with hard shadow */
+.retro-result {
+  background: var(--retro-teal);
+  border: 5px solid var(--retro-brown);
+  color: var(--retro-cream);
+  box-shadow: 5px 5px 0 var(--retro-brown);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Info box */
+.retro-info {
+  background: var(--retro-cream-dark);
+  border: 3px dashed var(--retro-brown);
+  color: var(--retro-brown);
+}
+
+/* Divider */
+.retro-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--retro-coral);
+}
+
+.retro-divider::before,
+.retro-divider::after {
+  content: '';
+  flex: 1;
+  height: 4px;
+  background:
+    linear-gradient(90deg, transparent, var(--retro-brown) 20%, var(--retro-brown) 80%, transparent);
+  border-radius: 2px;
+}
+
+/* Loading spinner */
+.loading-spinner {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top-color: var(--retro-cream);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Error box with hard shadow */
+.retro-error {
+  background: #fce8e6;
+  border: 3px solid var(--retro-red);
+  color: var(--retro-red);
+  box-shadow: 3px 3px 0 var(--retro-red);
+}
+
+/* Star decoration with hard shadow */
+.retro-star {
+  color: var(--retro-gold);
+  text-shadow: 2px 2px 0 var(--retro-brown);
+  animation: star-twinkle 1.5s ease-in-out infinite;
+}
+
+.retro-star:nth-child(2) { animation-delay: 0.2s; }
+.retro-star:nth-child(3) { animation-delay: 0.4s; }
+.retro-star:nth-child(4) { animation-delay: 0.6s; }
+.retro-star:nth-child(5) { animation-delay: 0.8s; }
+
+@keyframes star-twinkle {
+  0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+  50% { opacity: 0.5; transform: scale(0.85) rotate(10deg); }
+}
+
+/* Body text */
+.retro-body {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--retro-brown);
+}
+
+/* Rich corner flourishes */
+.retro-corner {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  opacity: 0.6;
+}
+
+.retro-corner::before,
+.retro-corner::after {
+  content: '';
+  position: absolute;
+  background: linear-gradient(135deg, var(--retro-coral) 0%, var(--retro-coral-dark) 100%);
+}
+
+.retro-corner::before {
+  width: 100%;
+  height: 4px;
+  top: 0;
+  border-radius: 2px;
+}
+
+.retro-corner::after {
+  width: 4px;
+  height: 100%;
+  left: 0;
+  border-radius: 2px;
+}
+
+.retro-corner-tl { top: 20px; left: 20px; }
+.retro-corner-tr { top: 20px; right: 20px; transform: scaleX(-1); }
+.retro-corner-bl { bottom: 20px; left: 20px; transform: scaleY(-1); }
+.retro-corner-br { bottom: 20px; right: 20px; transform: scale(-1); }
+
+/* Floating decoration */
+.deco-snowflake {
+  position: absolute;
+  color: var(--retro-coral);
+  opacity: 0.25;
+  font-size: 5rem;
+  animation: deco-float 8s ease-in-out infinite;
+}
+
+@keyframes deco-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(15deg); }
+}
+
+/* Gift icon bounce */
+.gift-bounce {
+  animation: gift-bounce 0.8s ease-in-out infinite;
+}
+
+@keyframes gift-bounce {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-12px) scale(1.1); }
+}
+
+/* Ornament swing */
+.ornament-swing {
+  animation: ornament-swing 3s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+@keyframes ornament-swing {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+
+/* Pulse ring effect */
+.pulse-ring {
+  position: relative;
+}
+
+.pulse-ring::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  border: 3px solid var(--retro-coral);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+@keyframes pulse-ring {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(1.4); opacity: 0; }
+}
+
+/* Christmas lights string */
+.lights-string {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px 0;
+}
+
+.light-bulb {
+  width: 12px;
+  height: 16px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  animation: light-glow 1s ease-in-out infinite;
+  border: 2px solid var(--retro-brown);
+}
+
+.light-bulb:nth-child(1) { background: #ff6b6b; }
+.light-bulb:nth-child(2) { background: #4ecdc4; animation-delay: 0.2s; }
+.light-bulb:nth-child(3) { background: #ffe66d; animation-delay: 0.4s; }
+.light-bulb:nth-child(4) { background: #95e1d3; animation-delay: 0.6s; }
+.light-bulb:nth-child(5) { background: #ff9a9e; animation-delay: 0.8s; }
+.light-bulb:nth-child(6) { background: #a8edea; animation-delay: 1s; }
+.light-bulb:nth-child(7) { background: #ffeaa7; animation-delay: 1.2s; }
+.light-bulb:nth-child(8) { background: #ff6b6b; animation-delay: 1.4s; }
+.light-bulb:nth-child(9) { background: #4ecdc4; animation-delay: 1.6s; }
+.light-bulb:nth-child(10) { background: #ffe66d; animation-delay: 1.8s; }
+.light-bulb:nth-child(11) { background: #95e1d3; animation-delay: 2s; }
+
+@keyframes light-glow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+/* Garland decoration */
+.garland {
+  position: absolute;
+  width: 100%;
+  height: 30px;
+  background:
+    repeating-linear-gradient(90deg,
+      var(--retro-green) 0px, var(--retro-green) 15px,
+      transparent 15px, transparent 20px
+    );
+  opacity: 0.3;
+  border-radius: 15px;
+  filter: blur(1px);
+}
