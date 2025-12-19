@@ -48,19 +48,11 @@ A beautiful, open-source Secret Santa application that you can self-host for you
 - **Persistent Storage**: Data survives container restarts
 - **Environment Variables**: Secure credential management
 
-## Screenshots
+## Screenshot
 
-| Home Page | Setup Wizard |
-|-----------|--------------|
-| ![Home](screenshots/home.png) | ![Setup](screenshots/setup.png) |
+![Home Page](screenshots/home.png)
 
-| Dashboard | Admin Panel |
-|-----------|-------------|
-| ![Dashboard](screenshots/dashboard.png) | ![Admin](screenshots/admin.png) |
-
-| Settings | Participation Stats |
-|----------|---------------------|
-| ![Settings](screenshots/settings.png) | ![Stats](screenshots/stats.png) |
+*The festive home page with snowfall animation and OAuth sign-in options.*
 
 ## Quick Start
 
